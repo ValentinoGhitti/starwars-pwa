@@ -1,35 +1,45 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useEffect, useState } from 'react';
+import CharacterCard from './Components/SWCharacterCard';
+import { getCharacterData } from './api/characters/getCharacters';
+import { CharacterData } from '../src/types/types';
 
-function App() {
-  const [count, setCount] = useState(0)
+const CharacterList: React.FC = () => {
+  const [characters, setCharacters] = useState<CharacterData[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchAllCharacters = async () => {
+      setLoading(true);
+      setError(null);
+
+      try {
+        const charactersArray: CharacterData[] = [];
+        for (let i = 1; i <= 10; i++) {
+          const characterData = await getCharacterData(i);
+          charactersArray.push(characterData);
+        }
+        setCharacters(charactersArray);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'An unknown error occurred');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchAllCharacters();
+  }, []);
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>{error}</p>;
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <div className="character-list">
+      {characters.map((character) => (
+        <CharacterCard key={character.url} character={character} />
+      ))}
+    </div>
+  );
+};
 
-export default App
+export default CharacterList;
