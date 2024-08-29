@@ -2,12 +2,19 @@ import { useEffect, useState } from 'react';
 import { getCharacterData } from '../api/characters/getCharacters';
 import { CharacterData, FetchResponse } from '../types/types';
 import usePagination from './usePagination';
-import useSearchCharacters from './useSearchCharacters';
+import useFilterByGender from './useFilterByGender';
 
-const useFetchCharacters = (initialPage: number = 1, searchTerm: string = '') => {
-  const { currentPage, goToNextPage, goToPreviousPage, setCurrentPage } = usePagination(initialPage);
+const useFetchCharacters = (initialPage: number = 1, searchTerm: string = '', genderFilter: string = 'all') => {
+  const { currentPage, goToNextPage, goToPreviousPage } = usePagination(initialPage);
   const [allCharacters, setAllCharacters] = useState<CharacterData[]>([]);
-  const filteredCharacters = useSearchCharacters(allCharacters, searchTerm);
+  const [characters, setCharacters] = useState<CharacterData[]>([]);
+
+  const filterCharacters = (charactersList: CharacterData[], search: string) => {
+    if (!search.trim()) return charactersList;
+    return charactersList.filter(character =>
+      character.name.toLowerCase().includes(search.toLowerCase())
+    );
+  };
 
   useEffect(() => {
     const fetchAllCharacters = async () => {
@@ -26,28 +33,25 @@ const useFetchCharacters = (initialPage: number = 1, searchTerm: string = '') =>
           break;
         }
       }
+
       setAllCharacters(charactersList);
     };
-
     fetchAllCharacters();
   }, []);
 
-  useEffect(() => {
-    if (searchTerm) {
-      setCurrentPage(1);
-    }
-  }, [searchTerm]);
+  const filteredByGender = useFilterByGender(allCharacters, genderFilter);
 
-  const startIndex = (currentPage - 1) * 10;
-  const endIndex = startIndex + 10;
-  const characters = filteredCharacters.slice(startIndex, endIndex);
+  useEffect(() => {
+    const startIndex = (currentPage - 1) * 10;
+    const endIndex = startIndex + 10;
+    const filtered = filterCharacters(filteredByGender, searchTerm);
+    setCharacters(filtered.slice(startIndex, endIndex));
+  }, [currentPage, filteredByGender, searchTerm]);
 
   return { 
     characters, 
     goToNextPage, 
-    goToPreviousPage, 
-    hasNextPage: endIndex < filteredCharacters.length,
-    hasPreviousPage: currentPage > 1
+    goToPreviousPage 
   };
 };
 
