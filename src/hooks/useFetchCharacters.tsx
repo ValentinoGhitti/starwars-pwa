@@ -2,29 +2,40 @@ import { useState, useEffect } from 'react';
 import { getCharacterData } from '../api/characters/getCharacters';
 import { CharacterData } from '../types/types';
 
-const useFetchCharacter = (character: string | number) => {
-  const [data, setData] = useState<CharacterData | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
+const useFetchCharacters = (initialPage: number = 1) => {
+  const [characters, setCharacters] = useState<CharacterData[]>([]);
+  const [nextPage, setNextPage] = useState<string | null>(null);
+  const [previousPage, setPreviousPage] = useState<string | null>(null);
+  const [currentPage, setCurrentPage] = useState<number>(initialPage);
 
   useEffect(() => {
-    const fetchCharacter = async () => {
-      setLoading(true);
-      setError(null);
-
+    const fetchCharacters = async () => {
       try {
-        const characterData = await getCharacterData(character);
-        setData(characterData);
+        const { results, next, previous } = await getCharacterData(currentPage);
+        setCharacters(results);
+        setNextPage(next);
+        setPreviousPage(previous);
       } catch (err) {
-        console.log(`error getting the pj's: ${err}`)
-      } finally {
-        setLoading(false);
+        console.log(err);
       }
     };
 
-    fetchCharacter();
-  }, [character]);
-  return { data, loading, error };
+    fetchCharacters();
+  }, [currentPage]);
+
+  const goToNextPage = () => {
+    if (nextPage) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const goToPreviousPage = () => {
+    if (previousPage) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+  return { characters, goToNextPage, goToPreviousPage };
 };
 
-export default useFetchCharacter;
+export default useFetchCharacters;
