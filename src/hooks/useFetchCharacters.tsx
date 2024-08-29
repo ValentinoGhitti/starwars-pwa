@@ -8,6 +8,7 @@ const useFetchCharacters = (initialPage: number = 1, searchTerm: string = '', ge
   const { currentPage, goToNextPage, goToPreviousPage, resetPage } = usePagination(initialPage);
   const [allCharacters, setAllCharacters] = useState<CharacterData[]>([]);
   const [characters, setCharacters] = useState<CharacterData[]>([]);
+  const [loading, setLoading] = useState(true);
 
   const filterCharacters = (charactersList: CharacterData[], search: string) => {
     if (!search.trim()) return charactersList;
@@ -22,19 +23,19 @@ const useFetchCharacters = (initialPage: number = 1, searchTerm: string = '', ge
       let page = 1;
       let hasMorePages = true;
 
-      while (hasMorePages) {
-        try {
+      try {
+        while (hasMorePages) {
           const data: FetchResponse = await getCharacterData(page);
           charactersList = [...charactersList, ...data.results];
           hasMorePages = data.next !== null;
           page += 1;
-        } catch (err) {
-          console.error('error gettin pjs:', err);
-          break;
         }
+        setAllCharacters(charactersList);
+      } catch (err) {
+        console.error('error getting characters:', err);
+      } finally {
+        setLoading(false);
       }
-
-      setAllCharacters(charactersList);
     };
     fetchAllCharacters();
   }, []);
@@ -56,7 +57,8 @@ const useFetchCharacters = (initialPage: number = 1, searchTerm: string = '', ge
     characters, 
     goToNextPage, 
     goToPreviousPage, 
-    currentPage
+    currentPage,
+    loading
   };
 };
 
