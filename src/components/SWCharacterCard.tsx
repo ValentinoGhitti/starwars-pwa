@@ -15,7 +15,7 @@ const CharacterCard: React.FC<CharacterCardProps> = ({ character }) => {
 
   useEffect(() => {
     const characterNumber = getCharacterNumber(character.url);
-    import(`../assets/characters/${characterNumber}.jpg`)
+    import(`../../public/assets/characters/${characterNumber}.jpg`)
       .then((module) => {
         setImageSrc(module.default);
       })
@@ -33,10 +33,10 @@ const CharacterCard: React.FC<CharacterCardProps> = ({ character }) => {
           <div className="mt-4">
             <h6>{character.name}</h6>
           </div>
-          <small>Species: {character.species}</small>
+          <small>Height: {character.height}cm</small>
           <small>Gender: {character.gender}</small>
           <small>Origin: {character.birth_year}</small>
-          <small>Location: {character.height}</small>
+          <small>Mass: {character.mass}kg</small>
           <div className="link status">
             <span className="m-2">{character.gender}</span>
             <span

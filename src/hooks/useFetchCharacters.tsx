@@ -56,7 +56,7 @@ const useFetchCharacters = (initialPage: number = 1, searchTerm: string = '', ge
   return { 
     characters, 
     goToNextPage, 
-    goToPreviousPage, 
+    goToPreviousPage,
     currentPage,
     loading
   };
