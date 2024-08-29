@@ -8,14 +8,20 @@ const usePagination = (initialPage: number = 1) => {
   };
 
   const goToPreviousPage = () => {
-    setCurrentPage(prevPage => prevPage - 1);
+    if (currentPage > 1) {
+      setCurrentPage(prevPage => prevPage - 1);
+    }
+  };
+
+  const resetPage = () => {
+    setCurrentPage(1);
   };
 
   return { 
     currentPage, 
     goToNextPage, 
     goToPreviousPage, 
-    setCurrentPage 
+    resetPage
   };
 };
 

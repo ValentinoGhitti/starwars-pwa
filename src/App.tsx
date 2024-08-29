@@ -5,7 +5,12 @@ import useFetchCharacters from './hooks/useFetchCharacters';
 const CharacterList: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [genderFilter, setGenderFilter] = useState('all');
-  const { characters, goToNextPage, goToPreviousPage } = useFetchCharacters(1, searchTerm, genderFilter);
+  const { 
+    characters, 
+    goToNextPage, 
+    goToPreviousPage, 
+    currentPage 
+  } = useFetchCharacters(1, searchTerm, genderFilter);
 
   return (
     <div>
@@ -29,7 +34,7 @@ const CharacterList: React.FC = () => {
         <p>acá va un loader</p>
       )}
       <div>
-        <button onClick={goToPreviousPage} disabled={characters.length === 0}>
+        <button onClick={goToPreviousPage} disabled={currentPage === 1}>
           Previous
         </button>
         <button onClick={goToNextPage} disabled={characters.length < 10}>

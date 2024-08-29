@@ -5,7 +5,7 @@ import usePagination from './usePagination';
 import useFilterByGender from './useFilterByGender';
 
 const useFetchCharacters = (initialPage: number = 1, searchTerm: string = '', genderFilter: string = 'all') => {
-  const { currentPage, goToNextPage, goToPreviousPage } = usePagination(initialPage);
+  const { currentPage, goToNextPage, goToPreviousPage, resetPage } = usePagination(initialPage);
   const [allCharacters, setAllCharacters] = useState<CharacterData[]>([]);
   const [characters, setCharacters] = useState<CharacterData[]>([]);
 
@@ -39,6 +39,10 @@ const useFetchCharacters = (initialPage: number = 1, searchTerm: string = '', ge
     fetchAllCharacters();
   }, []);
 
+  useEffect(() => {
+    resetPage();
+  }, [searchTerm, genderFilter]);
+
   const filteredByGender = useFilterByGender(allCharacters, genderFilter);
 
   useEffect(() => {
@@ -51,7 +55,8 @@ const useFetchCharacters = (initialPage: number = 1, searchTerm: string = '', ge
   return { 
     characters, 
     goToNextPage, 
-    goToPreviousPage 
+    goToPreviousPage, 
+    currentPage // Asegúrate de retornar `currentPage` aquí
   };
 };
 
