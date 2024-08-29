@@ -1,5 +1,6 @@
 import React from 'react';
 import '../style/loader.css';
+
 const LoaderSVG: React.FC = () => {
   return (
     <>

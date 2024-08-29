@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { CharacterData } from '../types/types';
-import '../style/style.css';
 
 interface CharacterCardProps {
   character: CharacterData;
