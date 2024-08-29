@@ -2,33 +2,52 @@ import { useEffect, useState } from 'react';
 import { getCharacterData } from '../api/characters/getCharacters';
 import { CharacterData, FetchResponse } from '../types/types';
 import usePagination from './usePagination';
+import useSearchCharacters from './useSearchCharacters';
 
-const useFetchCharacters = (initialPage: number = 1) => {
-  const { currentPage, nextPage, previousPage, goToNextPage, goToPreviousPage, setNextPage, setPreviousPage } = usePagination(initialPage);
-
-  const [characters, setCharacters] = useState<CharacterData[]>([]);
+const useFetchCharacters = (initialPage: number = 1, searchTerm: string = '') => {
+  const { currentPage, goToNextPage, goToPreviousPage, setCurrentPage } = usePagination(initialPage);
+  const [allCharacters, setAllCharacters] = useState<CharacterData[]>([]);
+  const filteredCharacters = useSearchCharacters(allCharacters, searchTerm);
 
   useEffect(() => {
-    const fetchCharacters = async () => {
-      try {
-        const data: FetchResponse = await getCharacterData(currentPage);
-        setCharacters(data.results);
-        setNextPage(data.next);
-        setPreviousPage(data.previous);
-      } catch (err) {
-        console.error('error gettin pjs::', err);
+    const fetchAllCharacters = async () => {
+      let charactersList: CharacterData[] = [];
+      let page = 1;
+      let hasMorePages = true;
+
+      while (hasMorePages) {
+        try {
+          const data: FetchResponse = await getCharacterData(page);
+          charactersList = [...charactersList, ...data.results];
+          hasMorePages = data.next !== null;
+          page += 1;
+        } catch (err) {
+          console.error('error gettin pjs:', err);
+          break;
+        }
       }
+      setAllCharacters(charactersList);
     };
 
-    fetchCharacters();
-  }, [currentPage, setNextPage, setPreviousPage]);
+    fetchAllCharacters();
+  }, []);
+
+  useEffect(() => {
+    if (searchTerm) {
+      setCurrentPage(1);
+    }
+  }, [searchTerm]);
+
+  const startIndex = (currentPage - 1) * 10;
+  const endIndex = startIndex + 10;
+  const characters = filteredCharacters.slice(startIndex, endIndex);
 
   return { 
     characters, 
     goToNextPage, 
     goToPreviousPage, 
-    nextPage, 
-    previousPage
+    hasNextPage: endIndex < filteredCharacters.length,
+    hasPreviousPage: currentPage > 1
   };
 };
 
