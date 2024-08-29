@@ -1,0 +1,68 @@
+/* Card */
+
+.character {
+  margin: 20px;
+}
+.cardCharacter {
+  position: relative;
+  width: 250px;
+  height: 300px;
+}
+.cardCharacter .face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: .5s;
+}
+.cardCharacter .front {
+  transform: perspective(600px) rotateY(0deg);
+  box-shadow: 0 5px 10px #000;
+}
+
+.cardCharacter .front img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.cardCharacter .front h6 {
+  position: absolute;
+  top: 260px;
+  width: 100%;
+  height: 45px;
+  line-height: 45px;
+  color: white;
+  background: rgba(0, 0, 0, .4);
+  text-align: center;
+}
+
+.cardCharacter .back {
+  transform: perspective(600px) rotateY(180deg);
+  background: rgb(0, 0, 0);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: center;
+  box-shadow: 0 5px 10px black;
+}
+.cardCharacter .back .link {
+  border-top: solid 1px #f3f3f3;
+  line-height: 100px;
+}
+
+.cardCharacter .back .link a {
+  color: #f3f3f3;
+}
+
+.cardCharacter:hover .front {
+  transform: perspective(600px) rotateY(180deg);
+}
+
+.cardCharacter:hover .back {
+  transform: perspective(600px) rotateY(360deg);
+}
