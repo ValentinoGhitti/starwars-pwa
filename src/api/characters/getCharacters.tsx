@@ -6,7 +6,6 @@ export const getCharacterData = async (page: number = 1): Promise<FetchResponse>
   try {
     const response = await fetch(url);
     const data: FetchResponse = await response.json();
-    console.log(data)
     return data;
   } catch (err) {
     console.error('error gettin pj data', err);
