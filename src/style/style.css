@@ -1,3 +1,13 @@
+.body {
+  background: #fcfcfc;
+}
+
+/* Typography */
+
+h1, h2 {
+  font-family: 'Star Wars', sans-serif;
+}
+
 /* Card */
 
 .character {
@@ -50,6 +60,7 @@
   text-align: center;
   box-shadow: 0 5px 10px black;
 }
+
 .cardCharacter .back .link {
   border-top: solid 1px #f3f3f3;
   line-height: 100px;
@@ -65,4 +76,124 @@
 
 .cardCharacter:hover .back {
   transform: perspective(600px) rotateY(360deg);
+}
+
+/* header */
+
+.welcome {
+  background-image: url(../assets/img/bg-header.jpg);
+  background-position: center;
+  background-size: cover;
+  height: 100vh;
+}
+
+.content {
+  display: flex;
+  justify-content:space-evenly;
+  align-items:flex-start;
+  flex-flow: column;
+  color: white;
+}
+
+@media screen and (max-width: 374px) {
+  .span {
+      font-size: 1px;
+  }
+}
+
+/* Footer */ 
+
+.footer {
+  background-color: #000;
+  background-image:
+    radial-gradient(#fff, #fff 1px, transparent 1px),
+    radial-gradient(#fff, #fff 1px, transparent 1px),
+    radial-gradient(#fff, #fff 1px, transparent 1px),
+    radial-gradient(#fff, #fff 1px, transparent 1px);
+  background-size: 550px 550px, 350px 350px, 250px 250px, 150px 150px;
+  background-position: 0 0, 40px 60px, 130px 270px, 70px 100px;
+  height: 100%;
+  width: 100%;
+}
+
+.death-star {
+  background-image: linear-gradient(#99a .5vmin, transparent .5vmin), linear-gradient(to right, #99a, #334);
+  border-radius: 50%;
+  height: 60vmin;
+  perspective: 1000vmin;
+  perspective-origin: 50%;
+  position: relative;
+  width: 60vmin;
+  padding: 0;
+}
+
+.death-star .wrapper {
+  height: 100%;
+  left: 0;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  transform-style: preserve-3d;
+  width: 100%;
+  z-index: 0;
+}
+
+.death-star .wrapper::after {
+  box-shadow: -25vmin 0 25vmin #000 inset;
+  content: "";
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
+.death-star .wrapper .trench {
+  border-bottom: solid 2vmin #99a;
+  border-top: solid 2vmin #99a;
+  box-shadow: 0 1vmin 1vmin rgba(0, 0, 0, .5) inset;
+  box-sizing: content-box;
+  height: 1vmin;
+  left: 0;
+  position: absolute;
+  top: 28vmin;
+  width: 100%;
+}
+
+.death-star .wrapper .lng {
+  border-left: solid 1px #99a;
+  border-radius: 50%;
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
+.death-star .wrapper .lng:nth-child(1) {
+  border-width: 1vmin;
+  transform: rotateY(30deg);
+}
+
+.death-star .wrapper .lng:nth-child(2) {
+  border-width: 2vmin;
+  transform: rotateY(70deg);
+}
+
+.death-star .wrapper .lng:nth-child(3) {
+  border-width: 2vmin;
+  transform: rotateY(110deg);
+}
+
+.death-star .wrapper .weapon {
+  background-image: linear-gradient(to right, #334, #667);
+  border-radius: 50%;
+  box-shadow: 0 -2vmin 2vmin rgba(255, 255, 255, .25) inset;
+  height: 20%;
+  left: 40%;
+  position: absolute;
+  top: 20%;
+  transform: rotateY(-25deg) translateZ(25vmin) rotateX(21deg);
+  width: 20%;
+  z-index: 1;
 }

@@ -42,9 +42,9 @@ const CharacterCard: React.FC<CharacterCardProps> = ({ character }) => {
             <span className="m-2">{character.gender}</span>
             <span
               className={
-                character.gender === 'male' ? 'fa-solid fa-heart-circle-check text-success' :
-                character.gender === 'female' ? 'text-danger fa-solid fa-skull-crossbones' :
-                character.gender === 'n/a' ? 'text-warning fa-solid fa-person-circle-question' :
+                character.gender === 'male' ? 'bi bi-person-standing text-primary' :
+                character.gender === 'female' ? 'bi bi-person-standing-dress text-danger' :
+                character.gender === 'n/a' ? 'bi bi-robot text-warning' :
                 ''
               }
             >

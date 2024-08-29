@@ -56,7 +56,7 @@ const useFetchCharacters = (initialPage: number = 1, searchTerm: string = '', ge
     characters, 
     goToNextPage, 
     goToPreviousPage, 
-    currentPage // Asegúrate de retornar `currentPage` aquí
+    currentPage
   };
 };
 
