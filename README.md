@@ -1,50 +1,64 @@
-# React + TypeScript + Vite
+# Starwars-PWA
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Clonar repositorio
 
-Currently, two official plugins are available:
+Para clonar el repo, seguí estos pasos:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+1. **Abrí tu Git Bash o terminal favorita.**
 
-## Expanding the ESLint configuration
+2. **Ejecuta el siguiente comando para clonar el repositorio:**
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+    ```bash
+    git@github.com:ValentinoGhitti/starwars-pwa.git
+    ```
 
-- Configure the top-level `parserOptions` property like this:
+3. **Navegá al directorio del repositorio clonado:**
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+    ```bash
+    cd starwars-pwa
+    ```
+    
+    Para abrir el proyecto en tu visual o IDE
+    ```bash
+    code .
+    ```
+4. **¡Listorti!**
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+## Configuración del Proyecto
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+Pasos para configurar y ejecutar el proyecto:
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+1. **Instala las dependencias del proyecto.** Ejecuta el siguiente comando en la terminal:
+
+    ```bash
+    npm install
+    ```
+    
+3. **Compilá y recargá el proyecto en dev mode .** Para levantar el proyecto en localhost :
+
+    ```bash
+    npm run dev
+    ```
+
+---
+
+ ## Funcionalidades
+
+- **Visor de tarjetas de personajes**: Muestra cards con información relevante de personajes de Star Wars, incluyendo su nombre, peso, altura, origen e imagen.
+- **Carga dinámica**: Los datos de los personajes se obtienen dinámicamente a través de la SWAPI.
+- **Modo offline**: La aplicación funciona sin conexión, permitiendo la visualización de las tarjetas de personajes guardados.
+- **Instalación como PWA**: La aplicación se puede instalar en dispositivos móviles y de escritorio, ofreciendo una experiencia similar a una aplicación nativa.
+- **Búsqueda/Filtrado**: Tiene una searchbar para buscar por el nombre del personaje y filtros para buscar por genero del personaje.
+
+## Demo
+
+**Deploy**: https://sw-pwa-vg.netlify.app/
+
+**Desktop**: 
+
+![image](https://github.com/user-attachments/assets/7d0547fc-4a49-44b1-bd42-b75237a14429)
+
+**Mobile**:
+
+![image](https://github.com/user-attachments/assets/87b4893a-42ce-4c32-94f4-79a4fbce9fcb)
+
