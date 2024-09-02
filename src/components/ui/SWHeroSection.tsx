@@ -12,8 +12,8 @@ const SWHeroSection: React.FC = () => {
           <div className="col-sm-3"></div>              
         </div>
       </section>
-      <img src="../../../public/assets/svg/wave.svg" alt="wave" />
-    </>
+      <img src="/assets/svg/wave.svg" alt="wave" />
+      </>
   );
 };
 
