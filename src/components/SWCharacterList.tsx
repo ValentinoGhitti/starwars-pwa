@@ -40,28 +40,28 @@ const SWCharacterList: React.FC = () => {
                   <div className="btn-group" role="group" aria-label="Basic example">
                     <button 
                       type="button" 
-                      className="btn btn-dark" 
+                      className={`btn ${genderFilter === 'all' ? 'btn-primary' : 'btn-dark'}`} 
                       onClick={() => setGenderFilter('all')}
                     >
                       All
                     </button>
                     <button 
                       type="button" 
-                      className="btn btn-dark" 
+                      className={`btn ${genderFilter === 'male' ? 'btn-primary' : 'btn-dark'}`} 
                       onClick={() => setGenderFilter('male')}
                     >
                       Male
                     </button>
                     <button 
                       type="button" 
-                      className="btn btn-dark" 
+                      className={`btn ${genderFilter === 'female' ? 'btn-primary' : 'btn-dark'}`} 
                       onClick={() => setGenderFilter('female')}
                     >
                       Female
                     </button>
                     <button 
                       type="button" 
-                      className="btn btn-dark" 
+                      className={`btn ${genderFilter === 'n/a' ? 'btn-primary' : 'btn-dark'}`} 
                       onClick={() => setGenderFilter('n/a')}
                     >
                       N/A

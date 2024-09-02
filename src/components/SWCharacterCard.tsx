@@ -34,7 +34,7 @@ const CharacterCard: React.FC<CharacterCardProps> = ({ character }) => {
           <small>Height: {character.height}cm</small>
           <small>Gender: {character.gender}</small>
           <small>Origin: {character.birth_year}</small>
-          <small>Mass: {character.mass}kg</small>
+          {character.mass !== 'unknown' && <small>Mass: {character.mass}kg</small>}
           <div className="link status">
             <span className="m-2">{character.gender}</span>
             <span
