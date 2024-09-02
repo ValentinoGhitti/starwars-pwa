@@ -15,10 +15,8 @@ const CharacterCard: React.FC<CharacterCardProps> = ({ character }) => {
 
   useEffect(() => {
     const characterNumber = getCharacterNumber(character.url);
-    import(`../../public/assets/characters/${characterNumber}.jpg`)
-      .then((module) => {
-        setImageSrc(module.default);
-      })
+    const imageUrl = `/assets/characters/${characterNumber}.jpg`;
+    setImageSrc(imageUrl);
   }, [character.url]);
 
   return (

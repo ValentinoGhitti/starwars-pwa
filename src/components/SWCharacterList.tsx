@@ -79,7 +79,7 @@ const SWCharacterList: React.FC = () => {
             ) : (
               <div className="d-flex flex-column justify-content-center mt-5 mb-5">
                 <div className="d-flex justify-content-center"> 
-                  <img className="gif" src="../src/assets/img/notfound.gif" alt="Character not found" />
+                  <img className="gif" src="/assets/img/notfound.gif" alt="notfound-img" />
                 </div>
                 <div className="d-flex justify-content-center"> 
                   <h5>Character not found :/</h5>

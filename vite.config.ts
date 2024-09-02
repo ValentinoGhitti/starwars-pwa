@@ -6,8 +6,8 @@ export default defineConfig({
   plugins: [
     react(),
     VitePWA({
-      injectRegister: 'auto',
-      includeAssets: ['assets/characters/*'],
+      registerType: 'autoUpdate',
+      includeAssets: ['assets/characters/*', 'assets/img/*'],
       manifest: {
         name: 'Star Wars PWA',
         short_name: 'StarWars',
@@ -21,6 +21,27 @@ export default defineConfig({
           }
         ],
       },
+      workbox: {
+        runtimeCaching: [
+          {
+            urlPattern: /^.*\/assets\/characters\/.*\.jpg$/,
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'character-images',
+              expiration: {
+                maxEntries: 88,
+                maxAgeSeconds: 24 * 60 * 60,
+              },
+            },
+          },
+        ],
+      },
+      /*
+      devOptions: {
+        enabled: true,
+        type: 'module',
+      },
+      */
     }),
   ],
 })
